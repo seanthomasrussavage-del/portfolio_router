@@ -7,7 +7,7 @@ install:
 	. .venv/bin/activate && pip install -r requirements.lock
 
 test:
-	. .venv/bin/activate && pytest -q
+	 PYTHONPATH=. pytest -q
 
 run:
 	. .venv/bin/activate && uvicorn api.app:app --reload --port 8000

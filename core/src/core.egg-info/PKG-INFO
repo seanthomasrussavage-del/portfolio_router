@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: core
+Version: 0.1.0
+Summary: Source of truth: schemas, validation, business logic.
+Requires-Python: >=3.11
