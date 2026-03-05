@@ -1,5 +1,10 @@
 # portfolio_router
 
+![CI](https://github.com/seanthomasrussavage-del/portfolio_router/actions/workflows/ci.yml/badge.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python](https://img.shields.io/badge/python-3.11+-blue.svg)
+![FastAPI](https://img.shields.io/badge/framework-FastAPI-green.svg)
+
 Governance-first AI routing service built with FastAPI.
 
 This service routes requests between AI agents and workflows while enforcing
