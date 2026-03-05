@@ -7,6 +7,7 @@ from .models import AuditEvent, RiskTier
 
 _EVENTS: List[AuditEvent] = []
 
+
 def record_event(
     *,
     path: str,
@@ -24,6 +25,7 @@ def record_event(
     )
     _EVENTS.append(evt)
     return evt
+
 
 def list_events(limit: int = 50) -> List[AuditEvent]:
     if limit < 1:

@@ -3,6 +3,7 @@ from core.src.service import health_check
 
 app = FastAPI()
 
+
 @app.get("/health")
 def health():
     # Thin wrapper: call core, return primitive/serializable

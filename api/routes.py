@@ -6,13 +6,16 @@ from .audit import record_event, list_events
 
 router = APIRouter()
 
+
 @router.get("/health")
 def health():
     return {"status": "ok"}
 
+
 @router.get("/")
 def root():
     return {"status": "ok"}
+
 
 @router.get("/meta")
 def meta():
@@ -22,6 +25,7 @@ def meta():
         "env": "dev",
         "ts": datetime.now(timezone.utc).isoformat(),
     }
+
 
 @router.post("/v1/route", response_model=RouteResponse)
 def v1_route(req: RouteRequest):
@@ -36,13 +40,16 @@ def v1_route(req: RouteRequest):
         chosen = "safety_triage"
         tags.append("intent_injury")
 
-    record_event(path="/v1/route", method="POST", status_code=200, risk_tier=req.risk_tier)
+    record_event(
+        path="/v1/route", method="POST", status_code=200, risk_tier=req.risk_tier
+    )
 
     return RouteResponse(
         chosen_route=chosen,
         confidence=0.72,
         decision_tags=tags,
     )
+
 
 @router.get("/v1/audit/events")
 def v1_audit_events(limit: int = 50):
