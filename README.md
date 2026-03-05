@@ -1,109 +1,57 @@
 # portfolio_router
 
-![CI](https://github.com/seanthomasrussavage-del/portfolio_router/actions/workflows/ci.yml/badge.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Python](https://img.shields.io/badge/python-3.11+-blue.svg)
-![FastAPI](https://img.shields.io/badge/framework-FastAPI-green.svg)
+**Governance-first AI routing service with human-in-the-loop controls.**
 
-Governance-first AI routing service built with FastAPI.
+---
 
-This service routes requests between AI agents and workflows while enforcing
-schema validation, governance gates, drift logging, and optional
-human-in-the-loop approval steps.
+## What This Is
 
-The goal is to make LLM-based systems **safe, observable, and auditable**.
+`portfolio_router` is a FastAPI service that demonstrates how governance constraints can be embedded directly into an AI routing layer — not bolted on afterward.
+
+Every request is validated against a policy schema before reaching a model. Every response is audited before returning to the caller. No request bypasses the gate. No exception is silent.
+
+**AI systems should be auditable, constrained, and human-overridable by design.**
 
 ---
 
 ## Architecture
 
-```
-Client
-   │
-   ▼
-FastAPI Router
-   │
-   ├── Schema Validation
-   ├── Governance Gates
-   ├── Drift Detection
-   └── HITL Approval (optional)
-   │
-   ▼
-AI Agents / Tools
-```
+Request → Policy Gate (schema validation, risk scan, scope check) → Router (model selection) → Audit Layer (append-only log, drift detection) → Response
 
-The router acts as the central control point for multi-agent systems.
+Three layers. Each independently testable. None bypassable.
 
 ---
 
-## Features
+## Quickstart
 
-- FastAPI service layer
-- strict schema validation
-- governance gate enforcement
-- drift logging for auditing
-- optional human-in-the-loop approval
-- modular architecture
-
----
-
-## Project Structure
-
-```
-api/            FastAPI routes
-core/           routing logic
-docs/           governance documentation
-tests/          validation tests
-ts-client/      example client integration
-requirements.lock   dependency lock file
-```
+git clone https://github.com/seanthomasrussavage-del/portfolio_router.git
+cd portfolio_router
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install -e .
+pip install pytest
+pytest -q
+uvicorn api.app.main:app --reload
 
 ---
 
-## Related Repositories
+## Governance Principles
 
-This project is part of a governance-focused AI system architecture:
-
-- `llm-governance-gate`
-- `multi-agent-router-hitl`
-- `governance-test-suite`
-- `drift-ledger-amendments`
-
-Together these repositories demonstrate safe orchestration patterns
-for AI-driven systems.
+Policy-first routing — gate runs before model selection
+Append-only audit — no log entry modified or deleted
+Schema enforcement — all requests validated against typed schemas
+Human override — available at all decision points
+Drift prevention — dependencies locked, environments isolated
+Test-gated changes — CI blocks merge on test failure
 
 ---
 
-## Run Locally
+## Related Repos
 
-```
-pip install -r requirements.lock
-uvicorn api.main:app --reload
-```
+llm-governance-gate | multi-agent-router-hitl | drift-ledger-amendments | governance-test-suite | systems-notes
 
-Open:
-
-```
-http://127.0.0.1:8000/docs
-```
-
-to view the Swagger interface.
+https://github.com/seanthomasrussavage-del
 
 ---
 
-## Purpose
-
-Most LLM systems focus on **capability**.
-
-This project focuses on **control**.
-
-Safe AI systems require:
-
-- routing controls
-- governance gates
-- validation layers
-- audit trails
-
-`portfolio_router` provides that foundation.
-
----
+MIT © 2026 Sean Thomas Russavage
